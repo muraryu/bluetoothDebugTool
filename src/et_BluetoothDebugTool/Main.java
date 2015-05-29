@@ -4,11 +4,15 @@ import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class Main {
 
 	public static void main(String[] args) {
+
+		String portID;
 
 		try
 		{
@@ -16,13 +20,19 @@ public class Main {
 			//=====================================================================================
 			//シリアルポートを確保する
 
+			// COM番号入力待ち
+			System.out.println("COM Number? :");
+			InputStreamReader isr = new InputStreamReader(System.in);
+			BufferedReader br = new BufferedReader(isr);
+			portID = br.readLine();
+
 			//使用するCOMポートを取得
-			CommPortIdentifier comID = CommPortIdentifier.getPortIdentifier("COM9");
+			CommPortIdentifier comID = CommPortIdentifier.getPortIdentifier("COM" + portID);
 
 			//COMポートを開きます
-			CommPort commPort = comID.open("hoge", 2000);
+			CommPort commPort = comID.open("nxt", 2000);
 
-			//シリアルポートのインスタンスを生成…
+			//シリアルポートのインスタンスを生成
 			SerialPort port = (SerialPort) commPort;
 
 			//=====================================================================================
